@@ -12,19 +12,6 @@ var button_stop = document.getElementById("button_stop");
 status_label.innerHTML = "Not Running";
 
 var isRunning;
-//here we check if the scripts are already running or not, we set the status labels accordingly
-chrome.storage.local.get("isRunning", function(result) {
-  isRunning = result.isRunning;
-  if (isRunning) {
-    status_label.innerHTML = "Running...";
-    button_start.disabled = true;
-    button_stop.disabled = false;
-  } else {
-    status_label.innerHTML = "Not Running";
-    button_start.disabled = false;
-    button_stop.disabled = true;
-  }
-});
 
 /**
 * This function will check every second if the boolean isRunning variable is still true, if not, it will run the stopping function
@@ -55,6 +42,10 @@ button_start.onclick = function() {
   button_start.disabled = true;
   button_stop.disabled = false;
 
+  chrome.storage.local.set({
+    isRunning : true
+  });
+
   var downloadLinkList = [];
   chrome.storage.local.set({
     downloadLinkList: downloadLinkList
@@ -65,7 +56,7 @@ button_start.onclick = function() {
   }, function(tabs) {
     chrome.tabs.executeScript(
       tabs[0].id, {
-        file: "scripts/episode_list.js"
+        file: "scripts/episode_list_page.js"
       });
   });
   window.setTimeout(checkIfStillRunning, 1000);

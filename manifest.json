@@ -11,5 +11,12 @@
   "background": {
     "scripts": ["scripts/background_agent.js"],
     "persistent": false
-  }
+  },
+
+  "permissions": [
+    "tabs",
+    "storage",
+    "http://kissanime.ru/Anime/*/",
+    "https://kissanime.ru/Anime/*/"
+  ]
 }
