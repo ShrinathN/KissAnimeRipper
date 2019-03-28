@@ -22,7 +22,15 @@ function ripLink() {
     return; //exit
   }
   var downloadLink = []; //setting download link as empty array
-  downloadLink.push(downloadButtons[0].href);
+  for (i = 0; i < downloadButtons.length - 1; i++) {
+    if (downloadButtons[i].href.includes("480")) {
+      downloadLink.push(downloadButtons[i].href);
+      break;
+    }
+  }
+  if(downloadLink[0] == undefined) {
+    downloadLink.push(downloadButtons[0].href);
+  }
 
   //sends the download links list
   chrome.runtime.sendMessage({
