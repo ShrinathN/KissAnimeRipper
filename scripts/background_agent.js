@@ -18,6 +18,61 @@ function sendMessageToTab(todo, data) {
 
 
 
+function endGame() {
+  chrome.storage.local.get("downloadLinkList", function(result) {
+    var downloadLinkList = result.downloadLinkList;
+    var finalStr =
+      `
+    <!DOCTYPE HTML>
+    <html>
+    <head><title>ANIME RIPPER - DOWNLOAD LINKS</title></head>
+    <body>
+    <button id="button_all">ALL</button>
+    <button id="button_mirror_sort">MIRROR SORT</button><br><br>
+    <div id="div_area"></div>
+    </body>
+    <script>
+    `;
+
+    finalStr = finalStr.concat("var listOfLinks = [];");
+    for(var i = 0; i < downloadLinkList.length; i++) {
+      finalStr = finalStr.concat("listOfLinks[" + i + "] = \"" + downloadLinkList[i] + "\";\n");
+    }
+
+    //list of sorting functions
+    finalStr = finalStr.concat(`
+      var button_all = document.getElementById("button_all");
+      var button_mirror_sort = document.getElementById("button_mirror_sort");
+
+      button_all.onclick = function() {
+        var div_area = document.getElementById("div_area");
+        div_area.innerHTML = "";
+        for(var i = 0; i < listOfLinks.length; i++) {
+          div_area.innerHTML += "<a href=\\"" + listOfLinks[i] + "\\">" + listOfLinks[i] + "</a><br>";
+        }
+      };
+
+      button_mirror_sort.onclick = function() {
+        var div_area = document.getElementById("div_area");
+        div_area.innerHTML = "";
+        for(var i = 0, y = 0; i < listOfLinks.length; i+= 5, y++) {
+          div_area.innerHTML += "<a href=\\"" + listOfLinks[i] + "\\">" + listOfLinks[i] + "</a><br>";
+          if(y == 3) {
+            y = 0;
+            i++;
+            if(i < listOfLinks.length)
+              div_area.innerHTML += "<a href=\\"" + listOfLinks[i] + "\\">" + listOfLinks[i] + "</a><br>";
+          }
+        }
+      };
+      </script>
+      </html>
+      `);
+    sendMessageToTab("writeData", finalStr); //sending page data to script
+    sendMessageToTab("globalStopMessage", null); //stop message
+  });
+}
+
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   if (request.todo == "storeEpisodeList") { //the main episode list is being received as data. Sent by episode_list.js
@@ -34,6 +89,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         chrome.storage.local.set({
           isRunning: false
         }); //setting isRunning as false
+        endGame();
       } else { //meaning this was not the last element in the list, we must continue
         chrome.storage.local.set({
           episodeList: episodeList

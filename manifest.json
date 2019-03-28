@@ -18,9 +18,13 @@
     "run_at": "document_idle",
     "js": ["scripts/robot_redirector.js"]
   }, {
-    "matches": ["https://kissanime.ru/Anime/*/"],
+    "matches": ["https://kissanime.ru/Anime/*"],
     "run_at": "document_idle",
-    "js": ["scripts/robot_redirector.js"]
+    "js": ["scripts/go_rapidvideo.js"]
+  }, {
+    "matches": ["https://www.rapidvideo.com/d/*"],
+    "run_at": "document_idle",
+    "js": ["scripts/rapidvideo_download_link.js"]
   }],
 
   "permissions": [
