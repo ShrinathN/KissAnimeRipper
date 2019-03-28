@@ -23,9 +23,14 @@ function checkIfStillRunning()
 {
   chrome.storage.local.get("isRunning", function(result){
     if(result.isRunning == false) {
-      button_stop.onclick();
+      status_label.innerHTML = "Not Running";
+      button_start.disabled = false;
+      button_stop.disabled = true;
     }
     else {
+      status_label.innerHTML = "Running...";
+      button_start.disabled = true;
+      button_stop.disabled = false;
       window.setTimeout(checkIfStillRunning, 1000);
     }
   });
@@ -72,7 +77,15 @@ button_stop.onclick = function() {
   status_label.innerHTML = "Not Running";
   button_start.disabled = false;
   button_stop.disabled = true;
+
+  chrome.storage.local.set({
+    isRunning : false
+  });
+
 }
+
+
+checkIfStillRunning();
 
 
 /*

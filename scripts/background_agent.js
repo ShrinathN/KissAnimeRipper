@@ -45,8 +45,10 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     chrome.storage.local.get("isRunning", function(result) { //gets isRunning status
       if (result.isRunning) { //sends yesCanRun message if true
         sendMessageToTab("yesCanRun", null);
+        console.log("Run request -> granted");
       } else { //sends noCannotRun message if false
         sendMessageToTab("noCannotRun", null);
+        console.log("Run request -> denied");
       }
     });
   } else if (request.todo == "addDownloadLink") { //appends download link from the download_page

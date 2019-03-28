@@ -13,6 +13,16 @@
     "persistent": false
   },
 
+  "content_scripts": [{
+    "matches": ["https://kissanime.ru/Special/AreYouHuman2*"],
+    "run_at": "document_idle",
+    "js": ["scripts/robot_redirector.js"]
+  }, {
+    "matches": ["https://kissanime.ru/Anime/*/"],
+    "run_at": "document_idle",
+    "js": ["scripts/robot_redirector.js"]
+  }],
+
   "permissions": [
     "tabs",
     "storage",
