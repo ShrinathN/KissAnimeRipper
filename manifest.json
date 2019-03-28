@@ -1,0 +1,10 @@
+{
+  "manifest_version": 2,
+  "version": "0.1",
+  "name": "KissAnimeRipper",
+  "description": "A simple tool to get direct download links from Kissanime",
+  "browser_action": {
+    "default_popup": "popup.html",
+    "default_title": "KissAnimeRipper"
+  }
+}
