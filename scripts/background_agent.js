@@ -27,22 +27,24 @@ function endGame() {
     <html>
     <head><title>ANIME RIPPER - DOWNLOAD LINKS</title></head>
     <body>
+    <h1 id="download_status_label"></h1><br>
     <button id="button_all">ALL</button>
-    <button id="button_mirror_sort">MIRROR SORT</button><br><br>
+    <button id="button_start_download">Start Download</button><br><br>
     <div id="div_area"></div>
     </body>
     <script>
     `;
 
     finalStr = finalStr.concat("var listOfLinks = [];");
-    for(var i = 0; i < downloadLinkList.length; i++) {
+    for (var i = 0; i < downloadLinkList.length; i++) {
       finalStr = finalStr.concat("listOfLinks[" + i + "] = \"" + downloadLinkList[i] + "\";\n");
     }
 
     //list of sorting functions
     finalStr = finalStr.concat(`
+      var download_status_label = document.getElementById("download_status_label");
       var button_all = document.getElementById("button_all");
-      var button_mirror_sort = document.getElementById("button_mirror_sort");
+      var button_start_download = document.getElementById("button_start_download");
 
       button_all.onclick = function() {
         var div_area = document.getElementById("div_area");
@@ -52,19 +54,26 @@ function endGame() {
         }
       };
 
-      button_mirror_sort.onclick = function() {
-        var div_area = document.getElementById("div_area");
-        div_area.innerHTML = "";
-        for(var i = 0, y = 0; i < listOfLinks.length; i+= 5, y++) {
-          div_area.innerHTML += "<a href=\\"" + listOfLinks[i] + "\\">" + listOfLinks[i] + "</a><br>";
-          if(y == 3) {
-            y = 0;
-            i++;
-            if(i < listOfLinks.length)
-              div_area.innerHTML += "<a href=\\"" + listOfLinks[i] + "\\">" + listOfLinks[i] + "</a><br>";
-          }
+      var temp_download_a = document.createElement("a");
+      var globalCounter = 0;
+      var downloadEnabled = false;
+
+      function iterateAndDownload() {
+        if(listOfLinks[globalCounter] != undefined && downloadEnabled){
+          temp_download_a.href = listOfLinks[globalCounter];
+          temp_download_a.click();
+          globalCounter++;
+          download_status_label.innerHTML = "Downloading " +  globalCounter + " of " + listOfLinks.length;
+          window.setTimeout(iterateAndDownload, (1000*60*3)); //3 min timer, i guess that works?
+        } else {
+          download_status_label.innerHTML = "Done";
         }
-      };
+      }
+
+      button_start_download.onclick = function() {
+        downloadEnabled = true;
+        iterateAndDownload();
+      }
       </script>
       </html>
       `);
