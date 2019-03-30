@@ -25,11 +25,27 @@ function endGame() {
       `
     <!DOCTYPE HTML>
     <html>
-    <head><title>ANIME RIPPER - DOWNLOAD LINKS</title></head>
+    <head>
+    <title>Kissanime ripper</title>
+    <style>body{width:150px;height:150px;background-image:linear-gradient(lightblue,white);}
+    button{background-color:#c9f2fc;height:30px;width: 150px;}
+    button:hover{background-color:#7ae0f9}
+    button:disabled:hover{background-color: #969494}
+    tr:hover{background-color:#7ae0f9}
+</style>
+    </head>
     <body>
-    <h1 id="download_status_label"></h1><br>
-    <button id="button_all">ALL</button>
-    <button id="button_start_download">Start Download</button><br><br>
+    <table border="1">
+    <tr><th><h1>Status</h1></th><th><h1 id="download_status_label"></h1></th></tr>
+    <tr><td>Display</td><td><button id="button_all">ALL</button></td></tr>
+    <tr><td>Time (in sec)</td><td><input type="number" id="downloadTimeDelay"></td></tr>
+    <tr><td>Download Options</td>
+    <td>
+      Starting Episode<input type="number" id="starting_episode_input"><br>
+      Ending Episode<input type="number" id="ending_episode_input"><br>
+      <button id="button_start_download">Start Download</button><br>
+      <button id="button_stop">Stop Download</button>
+    </td></tr></table>
     <div id="div_area"></div>
     </body>
     <script>
@@ -44,7 +60,12 @@ function endGame() {
     finalStr = finalStr.concat(`
       var download_status_label = document.getElementById("download_status_label");
       var button_all = document.getElementById("button_all");
+      var downloadTimeDelay = document.getElementById("downloadTimeDelay");
+      var starting_episode_input = document.getElementById("starting_episode_input");
+      var ending_episode_input = document.getElementById("ending_episode_input");
+
       var button_start_download = document.getElementById("button_start_download");
+      var button_stop = document.getElementById("button_stop");
 
       button_all.onclick = function() {
         var div_area = document.getElementById("div_area");
@@ -57,23 +78,44 @@ function endGame() {
       var temp_download_a = document.createElement("a");
       var globalCounter = 0;
       var downloadEnabled = false;
+      var startingEpisode;
+      var endingEpisode;
+
+      function getStartingEndingEpisode() {
+        startingEpisode = (starting_episode_input.value != undefined)?((Number(starting_episode_input.value))-1):0;
+        endingEpisode = (ending_episode_input.value != undefined)?(Number(ending_episode_input.value)):listOfLinks.length;
+      }
 
       function iterateAndDownload() {
-        if(listOfLinks[globalCounter] != undefined && downloadEnabled){
+        if((listOfLinks[globalCounter] != undefined) && (downloadEnabled) && (globalCounter < endingEpisode)){
+          var delay = Number(downloadTimeDelay.value);
           temp_download_a.href = listOfLinks[globalCounter];
           temp_download_a.click();
           globalCounter++;
           download_status_label.innerHTML = "Downloading " +  globalCounter + " of " + listOfLinks.length;
-          window.setTimeout(iterateAndDownload, (1000*60*3)); //3 min timer, i guess that works?
+          window.setTimeout(iterateAndDownload, (1000*delay));
         } else {
           download_status_label.innerHTML = "Done";
         }
       }
 
       button_start_download.onclick = function() {
+        getStartingEndingEpisode();
+        globalCounter = startingEpisode;
         downloadEnabled = true;
+        button_stop.disabled = false;
+        button_start_download.disabled = true;
         iterateAndDownload();
       }
+
+      button_stop.onclick = function() {
+        download_status_label.innerHTML = "Stopped";
+        downloadEnabled = false;
+        button_start_download.disabled = false;
+      }
+
+      button_stop.disabled = true;
+      download_status_label.innerHTML = "Not Downloading";
       </script>
       </html>
       `);
