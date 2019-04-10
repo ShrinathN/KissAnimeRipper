@@ -2,7 +2,7 @@
 //it responds to messages from other content scripts for pages
 
 var episodeList; //stores the episodeList from storage
-
+var quality; //stores the selected quality by the user
 //this function takes in two arguments and send them as a message
 function sendMessageToTab(todo, data) {
   chrome.tabs.query({
@@ -16,7 +16,9 @@ function sendMessageToTab(todo, data) {
   });
 }
 
-
+chrome.storage.local.get("quality", function(result) {
+  quality = result.quality;
+});
 
 function endGame() {
   chrome.storage.local.get("downloadLinkList", function(result) {
@@ -151,7 +153,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   } else if (request.todo == "canIRun") { //if a script is asking "canIRun" ?
     chrome.storage.local.get("isRunning", function(result) { //gets isRunning status
       if (result.isRunning) { //sends yesCanRun message if true
-        sendMessageToTab("yesCanRun", null);
+        sendMessageToTab("yesCanRun", quality);
         console.log("Run request -> granted");
       } else { //sends noCannotRun message if false
         sendMessageToTab("noCannotRun", null);
