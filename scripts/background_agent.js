@@ -27,7 +27,7 @@ function endGame() {
     <html>
     <head>
     <title>Kissanime ripper</title>
-    <style>body{width:150px;height:150px;background-image:linear-gradient(lightblue,white);}
+    <style>body{background-image:linear-gradient(lightblue,white);}
     button{background-color:#c9f2fc;height:30px;width: 150px;}
     button:hover{background-color:#7ae0f9}
     button:disabled:hover{background-color: #969494}
