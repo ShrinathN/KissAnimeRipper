@@ -18,6 +18,7 @@ function sendMessageToTab(todo, data) {
 
 chrome.storage.local.get("quality", function(result) {
   quality = result.quality;
+  console.log("QUALITY->" + quality);
 });
 
 function endGame() {

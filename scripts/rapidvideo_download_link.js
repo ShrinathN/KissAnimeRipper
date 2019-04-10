@@ -1,6 +1,7 @@
 //will only run on download pages
 //first it must acertain if its okay to run
 var quality;
+console.log("QUALITY->" + quality);
 //will setup the onMessage actions
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   if (request.todo == "goToPage") { //will go to a page, if told to
@@ -42,7 +43,7 @@ function ripLink() {
       }
     }
   } else if(quality == "1080") { //highest quality 1080p, or best available quality
-    downloadLink.push(downloadButtons[downloadButtons - 2].href);
+    downloadLink.push(downloadButtons[downloadButtons.length - 2].href);
   }
 
   /*
