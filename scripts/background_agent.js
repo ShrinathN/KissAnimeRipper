@@ -16,11 +16,6 @@ function sendMessageToTab(todo, data) {
   });
 }
 
-chrome.storage.local.get("quality", function(result) {
-  quality = result.quality;
-  console.log("QUALITY->" + quality);
-});
-
 function endGame() {
   chrome.storage.local.get("downloadLinkList", function(result) {
     var downloadLinkList = result.downloadLinkList;
@@ -85,8 +80,8 @@ function endGame() {
       var endingEpisode;
 
       function getStartingEndingEpisode() {
-        startingEpisode = (starting_episode_input.value != undefined)?((Number(starting_episode_input.value))-1):0;
-        endingEpisode = (ending_episode_input.value != undefined)?(Number(ending_episode_input.value)):listOfLinks.length;
+        startingEpisode = (starting_episode_input.value == "")?((Number(starting_episode_input.value))-1):0;
+        endingEpisode = (ending_episode_input.value == "")?(Number(ending_episode_input.value)):listOfLinks.length;
       }
 
       function iterateAndDownload() {
@@ -115,6 +110,7 @@ function endGame() {
         download_status_label.innerHTML = "Stopped";
         downloadEnabled = false;
         button_start_download.disabled = false;
+        button_stop.disabled = true;
       }
 
       button_stop.disabled = true;
@@ -154,6 +150,10 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   } else if (request.todo == "canIRun") { //if a script is asking "canIRun" ?
     chrome.storage.local.get("isRunning", function(result) { //gets isRunning status
       if (result.isRunning) { //sends yesCanRun message if true
+        chrome.storage.local.get("quality", function(result) {
+          quality = result.quality;
+          console.log("QUALITY->" + quality);
+        });
         sendMessageToTab("yesCanRun", quality);
         console.log("Run request -> granted");
       } else { //sends noCannotRun message if false

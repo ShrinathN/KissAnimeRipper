@@ -1,7 +1,6 @@
 //will only run on download pages
 //first it must acertain if its okay to run
 var quality;
-console.log("QUALITY->" + quality);
 //will setup the onMessage actions
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   if (request.todo == "goToPage") { //will go to a page, if told to
@@ -10,6 +9,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     document.write(request.data);
   } else if (request.todo == "yesCanRun") { //runs when the background script sends the yesCanRun message
     quality = request.data;
+    console.log("QUALITY->" + quality);
     window.setTimeout(ripLink, 1000); //runs after 1 second to let the browser decode the download link, its obfuscated using a javascript function
   } else if (request.todo == "noCannotRun") { //when the background script refuses to allow this script to run
     console.log("Not permitted to run");
@@ -30,14 +30,14 @@ function ripLink() {
     downloadLink.push(downloadButtons[0].href);
   } else if(quality == "480") { //480p, starting from 0th element to the end
     for(var i = 0; i < downloadButtons.length - 2; i++) {
-      if(downloadButtons[i].includes("480")) {
+      if(downloadButtons[i].href.includes("480")) {
         downloadLink.push(downloadButtons[i].href);
         break;
       }
     }
   } else if(quality == "720") { //720p, starting from the last, to the beginning
     for(var i = downloadButtons.length-2; i > -1; i--) {
-      if(downloadButtons[i].includes("720")) {
+      if(downloadButtons[i].href.includes("720")) {
         downloadLink.push(downloadButtons[i].href);
         break;
       }
