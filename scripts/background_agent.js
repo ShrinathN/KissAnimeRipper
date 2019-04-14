@@ -80,8 +80,8 @@ function endGame() {
       var endingEpisode;
 
       function getStartingEndingEpisode() {
-        startingEpisode = (starting_episode_input.value == "")?((Number(starting_episode_input.value))-1):0;
-        endingEpisode = (ending_episode_input.value == "")?(Number(ending_episode_input.value)):listOfLinks.length;
+        startingEpisode = (starting_episode_input.value == "")?0:((Number(starting_episode_input.value))-1);
+        endingEpisode = (ending_episode_input.value == "")?listOfLinks.length:(Number(ending_episode_input.value));
       }
 
       function iterateAndDownload() {
