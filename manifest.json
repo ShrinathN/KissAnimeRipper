@@ -1,12 +1,25 @@
 {
   "manifest_version": 2,
-  "version": "1.5.2",
+  "version": "1.5.3",
   "name": "KissAnimeRipper",
   "description": "A simple tool to get direct download links from Kissanime",
   "browser_action": {
     "default_popup": "popup.html",
-    "default_title": "KissAnimeRipper"
+    "default_title": "KissAnimeRipper",
+    "default_icon": {
+        "16": "img/16x16.png",
+        "32": "img/32x32.png",
+        "48": "img/48x48.png",
+        "128": "img/128x128.png"
+      }
   },
+
+  "icons": {
+      "16": "img/16x16.png",
+      "32": "img/32x32.png",
+      "48": "img/48x48.png",
+      "128": "img/128x128.png"
+    },
 
   "background": {
     "scripts": ["scripts/background_agent.js"],
