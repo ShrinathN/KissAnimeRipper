@@ -35,7 +35,7 @@ function endGame() {
     <body>
     <table border="1">
     <tr><th><h1>Status</h1></th><th><h1 id="download_status_label"></h1></th></tr>
-    <tr><td>Display</td><td><button id="button_all">ALL</button></td></tr>
+    <tr><td>Display</td><td><button id="button_all">Show all</button></td></tr>
     <tr><td>Time (in sec)</td><td><input type="number" id="downloadTimeDelay"></td></tr>
     <tr><td>Download Options</td>
     <td>
@@ -64,13 +64,22 @@ function endGame() {
 
       var button_start_download = document.getElementById("button_start_download");
       var button_stop = document.getElementById("button_stop");
-
+      
+      var div_area = document.getElementById("div_area");
+      div_area.innerHTML = "";
+      for(var i = 0; i < listOfLinks.length; i++) {
+      	div_area.innerHTML += "<a href=\\"" + listOfLinks[i] + "\\">" + listOfLinks[i] + "</a><br>";
+      }
+      div_area.hidden = true;
+      
       button_all.onclick = function() {
-        var div_area = document.getElementById("div_area");
-        div_area.innerHTML = "";
-        for(var i = 0; i < listOfLinks.length; i++) {
-          div_area.innerHTML += "<a href=\\"" + listOfLinks[i] + "\\">" + listOfLinks[i] + "</a><br>";
-        }
+      	if(div_area.hidden == true) {
+      		button_all.innerHTML = "Hide all";
+      		div_area.hidden = false;
+      	} else {
+      		button_all.innerHTML = "Show all";
+      		div_area.hidden = true;
+      	}
       };
 
       var temp_download_a = document.createElement("a");
