@@ -9,7 +9,7 @@ var status_label = document.getElementById("status_label");
 var button_start = document.getElementById("button_start");
 var button_stop = document.getElementById("button_stop");
 var checkbox_list_quality = document.getElementsByName("quality");
-
+var button_dump = document.getElementById("button_dump");
 status_label.innerHTML = "Not Running";
 checkbox_list_quality[0].checked = true;
 
@@ -35,6 +35,17 @@ function checkIfStillRunning()
       button_stop.disabled = false;
       window.setTimeout(checkIfStillRunning, 1000);
     }
+  });
+}
+
+button_dump.onclick = function() {
+  chrome.storage.local.get("downloadLinkList", function(result) {
+    var downloadLinkList = result.downloadLinkList;
+    var stringToShow = ""
+    for(var i = 0; i < downloadLinkList.length; i++) {
+      stringToShow += downloadLinkList[i] + "\n";
+    }
+    document.write(stringToShow);
   });
 }
 
