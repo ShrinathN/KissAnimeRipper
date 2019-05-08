@@ -64,14 +64,14 @@ function endGame() {
 
       var button_start_download = document.getElementById("button_start_download");
       var button_stop = document.getElementById("button_stop");
-      
+
       var div_area = document.getElementById("div_area");
       div_area.innerHTML = "";
       for(var i = 0; i < listOfLinks.length; i++) {
       	div_area.innerHTML += "<a href=\\"" + listOfLinks[i] + "\\">" + listOfLinks[i] + "</a><br>";
       }
       div_area.hidden = true;
-      
+
       button_all.onclick = function() {
       	if(div_area.hidden == true) {
       		button_all.innerHTML = "Hide all";
@@ -103,6 +103,8 @@ function endGame() {
           window.setTimeout(iterateAndDownload, (1000*delay));
         } else {
           download_status_label.innerHTML = "Done";
+          button_start_download.disabled = false;
+          button_stop.disabled = true;
         }
       }
 
