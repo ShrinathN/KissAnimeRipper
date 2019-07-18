@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "version": "1.5.7",
+  "version": "1.5.8",
   "name": "KissAnimeRipper",
   "description": "A simple tool to get direct download links from Kissanime",
   "browser_action": {

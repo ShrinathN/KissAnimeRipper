@@ -34,7 +34,7 @@ function saveLinkAndContinue() {
 function ripLink() {
   downloadLink = [];
 
-  var downloadButtons = document.getElementsByClassName("button_small tooltip"); //this is the array of buttons with the download links
+  var downloadButtons = document.getElementsByClassName("button is-info is-outlined is-rounded"); //this is the array of buttons with the download links
   if (downloadButtons == undefined) { //probably means page hasn't finished loading
     window.setTimeout(ripLink, 1000); //execute itself again 1 second later
     return; //exit
