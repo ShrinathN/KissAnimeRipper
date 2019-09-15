@@ -34,7 +34,7 @@ function saveLinkAndContinue() {
 function ripLink() {
   downloadLink = [];
 
-  var downloadButtons = document.getElementsByClassName("button is-info is-outlined is-rounded"); //this is the array of buttons with the download links
+  var downloadButtons = document.getElementsByClassName("button_small tooltip"); //this is the array of buttons with the download links
   if (downloadButtons == undefined) { //probably means page hasn't finished loading
     window.setTimeout(ripLink, 1000); //execute itself again 1 second later
     return; //exit
@@ -52,8 +52,6 @@ function ripLink() {
     if(downloadLink[0] == undefined) {
       downloadLink.push(downloadButtons[0].href);
     }
-    saveLinkAndContinue();
-    return;
   } else if(quality == "720") { //720p, starting from the last, to the beginning
     for(var i = downloadButtons.length-2; i > -1; i--) {
       if(downloadButtons[i].href.includes("720")) {
@@ -64,11 +62,11 @@ function ripLink() {
     if(downloadLink[0] == undefined) {
       downloadLink.push(downloadButtons[0].href);
     }
-    saveLinkAndContinue();
-    return;
   } else if(quality == "1080") { //highest quality 1080p, or best available quality
     downloadLink.push(downloadButtons[downloadButtons.length - 2].href);
   }
+
+  saveLinkAndContinue();
 }
   /*
   var downloadLink = []; //setting download link as empty array

@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "version": "1.5.8",
+  "version": "1.5.9",
   "name": "KissAnimeRipper",
   "description": "A simple tool to get direct download links from Kissanime",
   "browser_action": {
@@ -36,6 +36,10 @@
     "js": ["scripts/go_rapidvideo.js"]
   }, {
     "matches": ["https://www.rapidvideo.com/d/*"],
+    "run_at": "document_idle",
+    "js": ["scripts/rapidvideo_download_link.js"]
+  }, {
+    "matches": ["https://www.rapidvideo.is/*"],
     "run_at": "document_idle",
     "js": ["scripts/rapidvideo_download_link.js"]
   }],

@@ -36,7 +36,7 @@ That's it, the extension should be installed now.
 
 ## Usage :
 
-Make sure you're **not** using any ad blockers or JavaScript blockers, or this extension will not work. If you are, please disable them when you're using this plugin.
+Make sure you're **not** using any ad blockers or JavaScript blockers, or this extension might not work. If you are, please disable them when you're using this plugin.
 
 1. Browse to the main page of an anime on kissanime.ru. The main page is where all the episodes of an anime are listed. The URL should be something like http://kissanime.ru/Anime/ANIMENAME
 
