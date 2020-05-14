@@ -1,4 +1,4 @@
-## DEPRECATED
+## DEPRECATED (Update May 2020)
 This Chrome extension does not work now because KissAnime put a captcha check on the rapidvideo page.
 
 # KissAnimeRipper
