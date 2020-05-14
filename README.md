@@ -1,3 +1,6 @@
+## DEPRECATED
+This Chrome extension does not work now because KissAnime put a captcha check on the rapidvideo page.
+
 # KissAnimeRipper
 A chrome extension to automate obtaining video file download links from kissanime-rapidvideo
 
