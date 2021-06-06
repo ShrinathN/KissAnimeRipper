@@ -1,8 +1,11 @@
-## DEPRECATED (Update May 2020)
-This Chrome extension does not work now because KissAnime put a captcha check on the rapidvideo page.
-
 # KissAnimeRipper
 A chrome extension to automate obtaining video file download links from kissanime-rapidvideo
+
+## For anime related updates visit
+### [Otakukan.com](https://otakukan.com)
+
+## DEPRECATED (Update May 2020)
+This Chrome extension does not work now because KissAnime put a captcha check on the rapidvideo page.
 
 ## How does this work?
 It automates the process of going to kissanime, opening every single episode, and clicking on the download button to download the episodes one-by-one.
